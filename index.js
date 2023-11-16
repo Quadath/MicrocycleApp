@@ -3,7 +3,10 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongodb-session')(session)
 
-const cores = require('cors')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+const ExerciseRoutes = require('./routes/exercises')
 
 require('dotenv').config();
 
@@ -27,5 +30,7 @@ app.use(session({
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
+
+app.use('/exercises', ExerciseRoutes)
 
 app.listen(process.env.PORT, () => console.log(`App is running on port ${process.env.PORT}`))
