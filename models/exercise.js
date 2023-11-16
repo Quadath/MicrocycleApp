@@ -13,4 +13,4 @@ const ExerciseSchema = new Schema({
     }
 })
 
-module.exports = model('User', UserSchema)
+module.exports = model('Exercise', ExerciseSchema)

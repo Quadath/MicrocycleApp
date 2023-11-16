@@ -11,3 +11,5 @@ const TrainingSchema = new Schema({
         }
     ]
 })
+
+module.exports = model('Training', TrainingSchema)
