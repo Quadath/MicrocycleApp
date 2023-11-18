@@ -7,10 +7,15 @@ const ExerciseSchema = new Schema({
         min: 2,
         default: "NO NAME IS SET"
     },
+    abbreviation:{
+        type: String,
+        min: 2
+    },
     descripiton: {
         type: String,
         min: 5
     }
 })
 
+module.exports.schema = {ExerciseSchema}
 module.exports = model('Exercise', ExerciseSchema)

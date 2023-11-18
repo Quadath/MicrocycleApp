@@ -5,12 +5,15 @@ const router = Router()
 
 module.exports = router;
 
-router.get('/', (req,res) => {
-    res.send('List of exercises')
+router.get('/', async (req,res) => {
+    const exercises = await ExerciseSchema.find({}, {__v: 0});
+    console.log(exercises);
+    res.status(200);
+    return res.send(exercises);
 })
 
-router.post('/post', async (req,res) => {
-    const {name, description} = req.body;
+router.post('/', async (req,res) => {
+    const {name, description, abbreviation} = req.body;
     
 
     if(!name) {
@@ -21,8 +24,12 @@ router.post('/post', async (req,res) => {
         res.status(400);
         return res.send("Propetry name is invalid")
     } 
-    
-    const properName = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
+    let properName;
+    if (abbreviation) {
+        properName = name.toUpperCase();
+    } else {
+        properName = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
+    }
     
     let exerciseInstance = await ExerciseSchema.findOne({name: properName})
     console.log(exerciseInstance)

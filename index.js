@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 const MongoStore = require('connect-mongodb-session')(session)
 
 const cors = require('cors')
-const bodyParser = require('body-parser')
 
 const ExerciseRoutes = require('./routes/exercises')
+const TrainingRoutes = require('./routes/trainings')
 
 require('dotenv').config();
 
@@ -32,5 +32,6 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
 
 app.use('/exercises', ExerciseRoutes)
+app.use('/trainings', TrainingRoutes)
 
 app.listen(process.env.PORT, () => console.log(`App is running on port ${process.env.PORT}`))
