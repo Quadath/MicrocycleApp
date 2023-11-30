@@ -15,7 +15,6 @@ router.get('/', async (req,res) => {
 router.post('/', async (req,res) => {
     const {name, description, abbreviation} = req.body;
     
-
     if(!name) {
         res.status(400)
         return res.send("Property name is invalid")
@@ -36,7 +35,6 @@ router.post('/', async (req,res) => {
     if (!exerciseInstance) {
         exerciseInstance = await ExerciseSchema.create({name: properName})
     }
-    console.log(exerciseInstance);
     res.status(200);
     return res.json(exerciseInstance);
 })

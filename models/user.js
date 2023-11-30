@@ -2,6 +2,11 @@ const {Schema, model} = require('mongoose');
 const ExerciseSchema = require('./exercise')
 
 const UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        default: "Guest"
+    },
     username: {
         type: String,
         required: true
