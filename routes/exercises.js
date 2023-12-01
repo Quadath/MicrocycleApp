@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const ExerciseSchema = require('../models/exercise')
+const ObjectIdMiddleware = require('./middleware/ObjectIdMiddleware')
 
 const router = Router()
 
@@ -38,3 +39,24 @@ router.post('/', async (req,res) => {
     res.status(200);
     return res.json(exerciseInstance);
 })
+
+router.delete('/', (req, res, next) => ObjectIdMiddleware(req, res, next),
+    async(req, res, next) => IsExerciseExist(req, res, next), 
+    async (req, res) => {
+        const {id} = req.body;
+        const deleted = await ExerciseSchema.findByIdAndDelete(id);
+        res.status(200);
+        res.json(deleted);
+        return res.send();
+})
+
+
+async function IsExerciseExist(req, res, next) {
+    const {id} = req.body;
+    const exercise = await ExerciseSchema.findById(id)
+    if (exercise === null) {
+        res.status(404)
+        return res.send(`{"error": "No exercise found with id ${id}"}`)
+    }
+    next();
+}
