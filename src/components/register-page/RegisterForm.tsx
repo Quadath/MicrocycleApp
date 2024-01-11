@@ -3,7 +3,10 @@ import { useState } from 'react'
 
 export default function RegisterForm () {
     const [formData, setFormData] = useState({
-        name: ''
+        name: '',
+        username: '',
+        password: '',
+        repeat: ''
     })
 
     return (
