@@ -9,11 +9,13 @@ function App() {
 
   useEffect(() => {
     dispatch(getExercisesList())
+    console.log(exercises);
   }, [])
 
   return (
     <div className="App">
-      
+      {!loading && exercises == null ? <p>No exercises</p> : <>{exercises?.map(item => <p key={item._id}>{item.name}</p>)}</>}
+      {loading && <p>loading...</p>}
     </div>
   );
 }
