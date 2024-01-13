@@ -8,10 +8,7 @@ import "./App.sass"
 
 import Header from './components/header/Header';
 import RegisterForm from './components/register-form/RegisterForm';
-<<<<<<< HEAD
 import LoginForm from './components/login-form/LoginForm'
-=======
->>>>>>> d61f3b8f60a40adeb4c7148cb506bb592c9530f7
 
 function App() {
   const {exercises, loading, error} = useTypedSelector(state => state.exercises)
@@ -32,10 +29,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path='/auth/register' element={<RegisterForm/>}/>
-<<<<<<< HEAD
             <Route path='/auth/login' element={<LoginForm/>}/>
-=======
->>>>>>> d61f3b8f60a40adeb4c7148cb506bb592c9530f7
           </Routes>
           </div>
         }/>
