@@ -41,7 +41,7 @@ export default function RegisterForm () {
                     </div>
                 </div>
             </form>
-            <p className='login-auth-switch'>Don't have account yet? <Link to={'/auth/login'}>Register</Link></p>
+            <p className='login-auth-switch'>Don't have account yet? <Link to={'/auth/register'}>Register</Link></p>
         </div>
     )
 }
