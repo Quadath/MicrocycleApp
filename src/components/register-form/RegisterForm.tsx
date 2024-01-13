@@ -53,6 +53,8 @@ export default function RegisterForm () {
                 </div>
             </form>
             <p className='register-auth-switch'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
+            <p className='auth-switch'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
+
         </div>
     )
 }
