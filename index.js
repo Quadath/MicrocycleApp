@@ -5,6 +5,7 @@ const MongoStore = require('connect-mongodb-session')(session)
 
 const cors = require('cors')
 
+const AuthRoutes = require('./routes/auth')
 const ExerciseRoutes = require('./routes/exercises')
 const TrainingRoutes = require('./routes/trainings')
 
@@ -26,12 +27,13 @@ app.use(session({
     }, 
     store
 }))
-app.use(cors({credentials: true, origin: 'http://95.31.196.92:4000'}));
+app.use(cors({credentials: true, origin: ['http://95.31.196.92:4000', 'http://localhost:4000']}));
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
 
+app.use('/auth', AuthRoutes)
 app.use('/exercises', ExerciseRoutes)
 app.use('/trainings', TrainingRoutes)
 
