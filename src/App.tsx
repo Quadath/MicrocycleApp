@@ -8,6 +8,7 @@ import "./App.sass"
 
 import Header from './components/header/Header';
 import RegisterForm from './components/register-form/RegisterForm';
+import LoginForm from './components/login-form/LoginForm'
 
 function App() {
   const {exercises, loading, error} = useTypedSelector(state => state.exercises)
@@ -28,6 +29,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path='/auth/register' element={<RegisterForm/>}/>
+            <Route path='/auth/login' element={<LoginForm/>}/>
           </Routes>
           </div>
         }/>

@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import './RegisterForm.sass'
 import { useState } from 'react'
 import { useAppDispatch } from "../../hooks"
-import { RegisterRequestBody } from '../../services/authService';
-import { registerRequest } from '../../services/authService';
+import { RegisterRequestBody, registerRequest } from '../../services/authService';
+import './RegisterForm.sass'
 
 export default function RegisterForm () {
     const dispatch = useAppDispatch()
@@ -28,7 +27,6 @@ export default function RegisterForm () {
 
     return (
         <div className='register-page'>
-
             <form onSubmit={(e) => handleSubmit(formData, e)} className='register-form'>
                 <div className='register-form-header'>
                     <h3 className='register-form-header-text'>Register</h3>
@@ -54,7 +52,7 @@ export default function RegisterForm () {
                     </div>
                 </div>
             </form>
-            <p className='auth-switch'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
+            <p className='register-auth-switch'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
         </div>
     )
 }
