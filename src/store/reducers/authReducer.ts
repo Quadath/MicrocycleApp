@@ -17,7 +17,7 @@ export const registerReducer = (state = initialState, action: RegisterAction) : 
         case AuthActionTypes.REGISTER_USER:
             return {message : '', loading: true, errors: null}
         case AuthActionTypes.REGISTER_USER_SUCCESS: 
-            return {message: 'Account successfully created', loading: false, errors: null}
+            return {message: 'Account successfully registered', loading: false, errors: null}
         case AuthActionTypes.REGISTER_USER_ERROR: 
             return {message: "Error", loading: false, errors: action.errors}
         default: 

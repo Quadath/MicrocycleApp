@@ -11,14 +11,6 @@ import RegisterForm from './components/register-form/RegisterForm';
 import LoginForm from './components/login-form/LoginForm'
 
 function App() {
-  const {exercises, loading, error} = useTypedSelector(state => state.exercises)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(getExercisesList())
-    console.log(exercises);
-  }, [])
-
   return (
     
     <BrowserRouter basename="/app">
