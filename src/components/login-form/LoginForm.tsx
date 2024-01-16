@@ -42,6 +42,9 @@ export default function RegisterForm () {
 
     return (
         <div className='auth-page login'>
+            <div className={`auth-message login${message[0] === 'S' ? ' success' : ''}${message[0] === 'E' ? ' error' : ''}`}>
+                {message}
+            </div>
             <form onSubmit={(e) => handleSubmit(formData, e)} className='auth-form login'>
                 <div className='auth-form-header login'>
                     <h3 className='auth-form-header-text login'>Login</h3>

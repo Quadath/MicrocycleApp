@@ -3,7 +3,9 @@
 .auth
     &-page.login
         @include AuthPage
+        @include AuthMessage 
     &-form
         @include AuthForm
     &-form.login
         height: 260px
+    
