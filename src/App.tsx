@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { getExercisesList } from './services/exerciseService';
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useAppDispatch } from './hooks';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import "./style/main.css"

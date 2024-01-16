@@ -33,22 +33,26 @@
         color: #666
     label
         margin-top: 20px
-        padding-left: 15px
+        padding: 0 15px
         font-weight: 200
         font-size: 16px
         display: block
         text-align: left
-    input
-        display: block
-        height: 30px
-        border: none
-        border-radius: 5px
-        width: 90%
-        margin: 0 auto
-        &::-webkit-input-placeholder
-            color: #999
-            padding: 2px
-            font-size: 10px
+        input
+            display: block
+            height: 30px
+            border: none
+            border-radius: 5px
+            width: 100%
+            margin: 0 auto
+            &::-webkit-input-placeholder
+                color: #999
+                padding: 2px
+                font-size: 10px
+    label.error 
+        color: reda
+        span
+            opacity: 1
     &-submit
         display: block
         height: 30px
@@ -61,6 +65,7 @@
         font-size: 14px
         font-weight: bold
         cursor: pointer
+        transition: background-color 0.3s ease-in
         &:disabled
             background-color: #771c1c
             color: #555
@@ -74,13 +79,14 @@
         position: absolute
         left: 50%
         transform: translate(-50%, -100%)
-        top: 10       
+        top: 10px    
         height: 40px
         width: 200px
         border-radius: 10px
         color: white
-        font-size: 18px
-        padding-top: 10px
+        font-size: 13px
+        font-weight: 200
+        padding-top: 14px
         transition: 0.4s
         text-align: center
     .auth-message.success

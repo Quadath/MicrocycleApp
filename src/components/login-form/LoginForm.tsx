@@ -9,7 +9,6 @@ import './LoginForm.sass'
 
 export default function RegisterForm () {
     const dispatch = useAppDispatch()
-
     const {message, loading, error} = useTypedSelector(state => state.login)
 
     const [formData, setFormData] = useState({
@@ -42,35 +41,29 @@ export default function RegisterForm () {
 
     return (
         <div className='auth-page login'>
-            <div className={`auth-message login${message[0] === 'S' ? ' success' : ''}${message[0] === 'E' ? ' error' : ''}`}>
-                {message === "Error" ? error : message}
-            </div>
             <form onSubmit={(e) => handleSubmit(formData, e)} className='auth-form login'>
                 <div className='auth-form-header login'>
                     <h3 className='auth-form-header-text login'>Login</h3>
 
                     <div className='auth-form-inputs login'>
-                        <label htmlFor="username">Username</label>
-                        <input placeholder="Your username" type="text" value={formData.username} 
-                        onChange={(e) => setFormData({...formData, username: e.target.value})} name='username'/>
+                        <label>Username
+                            <input placeholder="Your username" type="text" autoComplete='true' value={formData.username} 
+                            onChange={(e) => setFormData({...formData, username: e.target.value})} name='username'/>
+                        </label>
 
-                        <label htmlFor="password">Password</label>
-                        <input placeholder="Your password" type="password" value={formData.password} 
-                        onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'/>
+                        <label>Password
+                            <input placeholder="Your password" type="password" value={formData.password} 
+                            onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'/>
+                        </label>
 
                         <button disabled={formErrors.username || formErrors.password} className='auth-form-submit login'>Login</button>
                     </div>
                 </div>
             </form>
+            <div className={`auth-message login${message[0] === 'S' ? ' success' : ''}${message[0] === 'E' && message != null ? ' error' : ''}`}>
+                {message === "Error" ? error : message}
+            </div>
             <p className='auth-switch login'>Don't have account yet? <Link to={'/auth/register'}>Register</Link></p>
         </div>
     )
 }
-
-interface AuthError {
-    value: String
-    msg: String
-    param: String
-    location: String
-}
-

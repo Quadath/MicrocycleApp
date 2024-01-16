@@ -3,7 +3,20 @@
 .auth
     &-page.register
         @include AuthPage
+        @include AuthMessage
     &-form
         @include AuthForm
+        label
+            transition: all 0.3s ease-out
+            span
+                float: right
+                padding-top: 3px
+                transition: all 0.3s ease-out
+                opacity: 0
+                font-size: 12px
+        label.error
+            color: red
+            span
+                opacity: 1
     &-form.register
         height: 400px

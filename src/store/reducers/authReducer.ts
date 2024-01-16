@@ -17,7 +17,7 @@ export const registerReducer = (state = registerInitialState, action: RegisterAc
         case AuthActionTypes.REGISTER_USER:
             return {message : '', loading: true, error: null}
         case AuthActionTypes.REGISTER_USER_SUCCESS: 
-            return {message: 'Account successfully registered', loading: false, error: null}
+            return {message: 'Account successfully created!', loading: false, error: null}
         case AuthActionTypes.REGISTER_USER_ERROR: 
             return {message: "Error", loading: false, error: action.error}
         default: 
@@ -42,7 +42,7 @@ export const loginReducer = (state = loginInitialState, action: LoginAction) : L
         case AuthActionTypes.LOGIN_USER:
             return {message : '', loading: true, error: null}
         case AuthActionTypes.LOGIN_USER_SUCCESS: 
-            return {message: 'Successfully logged in', loading: false, error: null}
+            return {message: 'Successfully logged in!', loading: false, error: null}
         case AuthActionTypes.LOGIN_USER_ERROR: 
             return {message: "Error", loading: false, error: action.error}
         default: 

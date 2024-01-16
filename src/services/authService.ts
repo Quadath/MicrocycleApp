@@ -27,7 +27,7 @@ export const registerRequest = (body : RegisterRequestBody) => {
         catch(error) {
             if(axios.isAxiosError(error)) {
                 dispatch({
-                    type: AuthActionTypes.REGISTER_USER_ERROR, error: error.response?.data
+                    type: AuthActionTypes.REGISTER_USER_ERROR, error: error.response ? error.response?.data.errors[0].msg : "Server is down."
                 })
             }
         }
