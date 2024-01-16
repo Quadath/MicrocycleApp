@@ -16,7 +16,7 @@ interface RegisterUserSuccessAction {
 }
 interface RegisterUserErrorAction {
     type: AuthActionTypes.REGISTER_USER_ERROR
-    errors: any
+    error: any
 }
 
 interface LoginUserAction {
@@ -28,7 +28,7 @@ interface LoginUserSuccessAction {
 }
 interface LoginUserErrorAction {
     type: AuthActionTypes.LOGIN_USER_ERROR
-    errors: any
+    error: any
 }
 
 export type RegisterAction = RegisterUserAction | RegisterUserSuccessAction | RegisterUserErrorAction
