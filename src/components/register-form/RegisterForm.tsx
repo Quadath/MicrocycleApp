@@ -26,18 +26,18 @@ export default function RegisterForm () {
     }
 
     return (
-        <div className='register-page'>
-            <form onSubmit={(e) => handleSubmit(formData, e)} className='register-form'>
-                <div className='register-form-header'>
-                    <h3 className='register-form-header-text'>Register</h3>
+        <div className='auth-page register'>
+            <form onSubmit={(e) => handleSubmit(formData, e)} className='auth-form register'>
+                <div className='auth-form-header register'>
+                    <h3 className='auth-form-header-text register'>Register</h3>
 
-                    <div className='register-form-inputs'>
+                    <div className='auth-form-inputs register'>
                         <label htmlFor="name">Name</label>
-                        <input placeholder="Your name" type="text" value={formData.name} 
+                        <input placeholder="Your name" type="text" autoComplete='false' value={formData.name} 
                         onChange={(e) => setFormData({...formData, name: e.target.value})} name='name'/>
                         
                         <label htmlFor="username">Username</label>
-                        <input placeholder="Your username" type="text" value={formData.username} 
+                        <input placeholder="Your username" type="text" autoComplete='false' value={formData.username} 
                         onChange={(e) => setFormData({...formData, username: e.target.value})} name='username'/>
 
                         <label htmlFor="password">Password</label>
@@ -48,11 +48,11 @@ export default function RegisterForm () {
                         <input placeholder="Repeat password" type="password" value={formData.repeat} 
                         onChange={(e) => setFormData({...formData, repeat: e.target.value})} name='repeat'/>
 
-                        <button className='register-form-submit'>Register</button>
+                        <button className='auth-form-submit'>Register</button>
                     </div>
                 </div>
             </form>
-            <p className='register-auth-switch'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
+            <p className='auth-switch register'>Already have account? <Link to={'/auth/login'}>Login</Link></p>
 
         </div>
     )

@@ -1,59 +1,9 @@
-.login
-    color: #121212
-    &-page
-        padding: 10px
+@import '../../../style/Auth'
+
+.auth
+    &-page.login
+        @include AuthPage
     &-form
-        width: 250px
-        height: 270px
-        background-color: #f4eddf
-        margin: 30px auto 0
-        border-radius: 10px
-        color: white
-        &-header
-            height: 40px
-            background-color: #D24545
-            border-radius: 10px 10px 0 0
-            &-text
-                padding-top: 10px
-                text-align: center
-        &-inputs
-            padding: 5px 10px
-            color: #666
-        label
-            margin-top: 20px
-            padding-left: 15px
-            font-weight: 200
-            font-size: 16px
-            display: block
-        input
-            display: block
-            height: 30px
-            border: none
-            border-radius: 5px
-            width: 90%
-            margin: 0 auto
-            &::-webkit-input-placeholder
-                color: #999
-                padding: 2px
-                font-size: 10px
-        &-submit
-            display: block
-            height: 30px
-            width: 90%
-            margin: 15px auto
-            background-color: #D24545
-            color: white
-            border: none
-            border-radius: 10px
-            font-size: 14px
-            font-weight: bold
-            cursor: pointer
-    &-auth-switch
-        display: block
-        text-align: center
-        margin: 10px auto
-        font-weight: 200
-        font-size: 12px
-        a
-            color: #4ed8e8
-                
+        @include AuthForm
+    &-form.login
+        height: 260px
