@@ -19,10 +19,12 @@ import LoginForm from './components/login-form/LoginForm'
 function App() {
   const location = useLocation();
 
+  const {message: loginMessage} = useTypedSelector(state => state.login)
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getCurrentUser())
-  }, [])
+  }, [loginMessage])
 
   return (
        <Routes>
