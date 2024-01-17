@@ -35,7 +35,7 @@ export default function RegisterForm () {
             repeat: formData.repeat !== '' && formData.password !== formData.repeat,
             full: formData.name !== '' && formData.username !== '' && formData.password !== '' && formData.repeat !==''
         })
-    }, [debouncedData])
+    }, [debouncedData, formData])
 
 
     const isDataValid = () => (!formErrors.name && !formErrors.username && !formErrors.password && !formErrors.repeat)
