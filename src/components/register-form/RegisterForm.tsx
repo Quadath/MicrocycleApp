@@ -68,7 +68,7 @@ export default function RegisterForm () {
                     <label className={`${(formErrors.username && formData.username !== '') ? 'error' : ''}`}>Username
                     <span> 5 characters minimum</span>
                     <input placeholder="Your username" type="text" autoComplete='false' value={formData.username} 
-                    onChange={(e) => setFormData({...formData, username: e.target.value})} name='username'/>
+                    onChange={(e) => setFormData({...formData, username: e.target.value.replace(/[^a-zA-Z0-9]/g, '')})} name='username'/>
                     </label>
 
                     <label className={`${(formErrors.password && formData.password !== '') ? 'error' : ''}`}>Password
@@ -77,13 +77,15 @@ export default function RegisterForm () {
                     onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'/>
                     </label>
 
-                    <label className={`${(formErrors.password && formData.password !== '') ? 'error' : ''}`}>Repeat
+                    <label className={`${(formErrors.repeat && formData.repeat !== '') ? 'error' : ''}`}>Repeat
                     <span> Passwords do not match</span>
                     <input placeholder="Repeat password" type="password" value={formData.repeat} 
-                    onChange={(e) => setFormData({...formData, repeat: e.target.value})} name='repeat'/>
+                    onChange={(e) => setFormData({...formData, repeat: e.target.value.replace(/[^a-zA-Z0-9!#()&.]/g, '')})} name='repeat'/>
                     </label>
 
-                    <button disabled={(!isDataValid() || !formErrors.full)} className='auth-form-submit'>Register</button>
+                    <button disabled={(!isDataValid() || !formErrors.full)} className='auth-form-submit'>
+                        {loading ? '...' : "Register"}
+                    </button>
                 </div>
             </form>
             <div className={`auth-message register${message[0] === 'A' ? ' success' : ''}${message[0] === 'E' ? ' error' : ''}`}>

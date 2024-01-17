@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useAppDispatch } from './hooks';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import { getCurrentUser } from './services/authService';
 import "./style/main.css"
 
 import {
@@ -17,6 +18,11 @@ import LoginForm from './components/login-form/LoginForm'
 
 function App() {
   const location = useLocation();
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getCurrentUser())
+  }, [])
 
   return (
        <Routes>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "@reduxjs/toolkit";
-import { RegisterAction, LoginAction, AuthActionTypes } from '../store/types/AuthTypes';
+import { AuthActionTypes, RegisterAction, LoginAction, SessionAction, IUser} from '../store/types/AuthTypes';
 import { API_URL } from '.';
 
 export interface RegisterRequestBody {
@@ -18,16 +18,16 @@ export interface LoginRequestBody {
 export const registerRequest = (body : RegisterRequestBody) => {
     return async (dispatch : Dispatch<RegisterAction>) => {
         try {
-            dispatch({type: AuthActionTypes.REGISTER_USER})
+            dispatch({type: AuthActionTypes.REGISTER_LOADING})
             const response = await axios.post(`${API_URL}/auth/register`, body)
             dispatch({
-                type: AuthActionTypes.REGISTER_USER_SUCCESS, message: response.data
+                type: AuthActionTypes.REGISTER_SUCCESS, message: response.data
             })
         }
         catch(error) {
             if(axios.isAxiosError(error)) {
                 dispatch({
-                    type: AuthActionTypes.REGISTER_USER_ERROR, error: error.response ? error.response?.data.errors[0].msg : "Server is down."
+                    type: AuthActionTypes.REGISTER_ERROR, error: error.response ? error.response?.data.errors[0].msg : "Server is down."
                 })
             }
         }
@@ -37,16 +37,36 @@ export const registerRequest = (body : RegisterRequestBody) => {
 export const loginRequest = (body : LoginRequestBody) => {
     return async (dispatch : Dispatch<LoginAction>) => {
         try {
-            dispatch({type: AuthActionTypes.LOGIN_USER})
+            dispatch({type: AuthActionTypes.LOGIN_LOADING})
             const response = await axios.post(`${API_URL}/auth/login`, body, {withCredentials: true})
             dispatch({
-                type: AuthActionTypes.LOGIN_USER_SUCCESS, message: response.data
+                type: AuthActionTypes.LOGIN_SUCCESS, message: response.data
             })
         }
         catch(error) {
             if(axios.isAxiosError(error)) {
                 dispatch({
-                    type: AuthActionTypes.LOGIN_USER_ERROR, error: error.response ? error.response?.data.errors[0].msg : "Server is down."
+                    type: AuthActionTypes.LOGIN_ERROR, error: error.response ? error.response?.data.errors[0].msg : "Server is down."
+                })
+            }
+        }
+    }
+}
+
+
+export const getCurrentUser = () => {
+    return async (dispatch : Dispatch<SessionAction>) => {
+        try {
+            dispatch({type: AuthActionTypes.SESSION_LOADING})
+            const response = await axios.get(`${API_URL}/auth/me`, {withCredentials: true})
+            dispatch({
+                type: AuthActionTypes.SESSION_SUCCESS, user: response.data
+            })
+        }
+        catch(error) {
+            if(axios.isAxiosError(error)) {
+                dispatch({
+                    type: AuthActionTypes.SESSION_ERROR, error: error.response?.data
                 })
             }
         }

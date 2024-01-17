@@ -56,7 +56,9 @@ export default function RegisterForm () {
                             onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'/>
                         </label>
 
-                        <button disabled={formErrors.username || formErrors.password} className='auth-form-submit login'>Login</button>
+                        <button disabled={formErrors.username || formErrors.password} className='auth-form-submit login'>
+                            {loading ? '...' : "Login"}
+                        </button>
                     </div>
                 </div>
             </form>
