@@ -11,7 +11,6 @@ export default function RegisterForm () {
     const dispatch = useAppDispatch()
     const {message, loading, error} = useTypedSelector(state => state.register)
 
-
     const [formData, setFormData] = useState({
         name: '',
         username: '',
