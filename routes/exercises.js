@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const ExerciseSchema = require('../models/exercise')
-const ObjectIdMiddleware = require('./middleware/ObjectIdMiddleware')
+const ObjectIdMiddleware = require('../middleware/ObjectIdMiddleware')
 
 const router = Router()
 

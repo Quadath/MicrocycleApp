@@ -39,7 +39,7 @@ router.post('/register', registerValidator, async(req, res) => {
     })
     await user.save().then((result) => {
         res.status(200, {'Content-Type': 'application/json'})
-        .end(JSON.stringify({message: "sussess", id: result.id}))
+        .end(JSON.stringify({message: "sussess"}))
     })
 })
 
@@ -79,11 +79,11 @@ router.get('/me', async(req, res) => {
     const userId = req.session.user;
 
     if(userId === undefined) {
-        res.status(200, {'Content-Type': 'application/json'})
-        .end(JSON.stringify({message: "You are not signed in!"}))
+        res.status(403, {'Content-Type': 'application/json'})
+        .end(JSON.stringify({error: "You are not signed in!"}))
     }
 
-    await UserSchema.findById(userId).select(['-password', '-posts'])
+    await UserSchema.findById(userId).select(['-hashPassword', '-_id', '-__v'])
         .then(user => {
             res.status(200, {'Content-Type': 'application/json'})
             .end(JSON.stringify(user))
