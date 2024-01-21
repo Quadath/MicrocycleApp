@@ -16,14 +16,15 @@ const UserSchema = new Schema({
         required: true
     },
     stats: {
-        exerciseId: {
+        exercises: {
             type: Map,
             of: [
                 {
                     date: Date,
                     weight: Number,
                     cycles: Number,
-                    repeats: Number
+                    repeats: Number,
+                    _id: false
                 }
             ]
         }

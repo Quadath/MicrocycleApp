@@ -2,13 +2,13 @@ const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongodb-session')(session)
-const headers = require('./middleware/headers')
 
 const cors = require('cors')
 
 const AuthRoutes = require('./routes/auth')
 const ExerciseRoutes = require('./routes/exercises')
 const TrainingRoutes = require('./routes/trainings')
+const UserRoutes = require('./routes/users')
 
 require('dotenv').config();
 
@@ -31,10 +31,6 @@ app.use(session({
     store
 }))
 app.use(cors({credentials: true, origin: 'http://localhost:4000'}));
-// app.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     next()
-//   })
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URI)
@@ -43,6 +39,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/auth', AuthRoutes)
 app.use('/exercises', ExerciseRoutes)
 app.use('/trainings', TrainingRoutes)
+app.use('/users', UserRoutes)
 app.use('/auth', AuthRoutes)
 
 app.listen(process.env.PORT, () => console.log(`App is running on port ${process.env.PORT}`))
