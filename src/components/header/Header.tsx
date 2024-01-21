@@ -15,9 +15,9 @@ export default function Header() {
                     </> 
                     :
                     user ? 
-                    <span>
+                    <Link to="/user">
                         {user.name}
-                    </span>
+                    </Link>
                     :
                     <>
                         <Link to="/auth/login">Login</Link>
