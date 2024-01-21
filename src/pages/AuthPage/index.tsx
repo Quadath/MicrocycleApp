@@ -1,22 +1,22 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, redirect, useNavigate } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 import RegisterForm from '../../components/register-form/RegisterForm';
 import LoginForm from '../../components/login-form/LoginForm'
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { IUser } from "../../store/types/AuthTypes";
   
 
 export default function AuthPage () {
     const navigate = useNavigate();
     const {user} = useTypedSelector(state => state.session);
-    const {message : loginMessage} = useTypedSelector(state => state.login)
 
     useEffect(() => {
-        if (loginMessage && user) {
-            setTimeout(() => navigate('/'), 2000);
+        if(user) {
+            navigate('/')
         }
-    }, [user, loginMessage, navigate])
+    }, [user, navigate]);
 
     return (
         <Routes>
@@ -25,3 +25,4 @@ export default function AuthPage () {
         </Routes>
     )
 }
+
