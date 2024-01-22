@@ -16,6 +16,11 @@ router.get('/', async (req, res) => {
     await user.save();
 })
 
+console.log(toDateKey(new Date()));
+function toDateKey(date) {
+    return date.toISOString().split('T')[0].replaceAll("-", "_");
+}
+
 module.exports = router;
 
 

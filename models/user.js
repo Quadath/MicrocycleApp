@@ -20,7 +20,7 @@ const UserSchema = new Schema({
             type: Map,
             of: [
                 {
-                    date: Date,
+                    date: String,
                     weight: Number,
                     cycles: Number,
                     repeats: Number,
