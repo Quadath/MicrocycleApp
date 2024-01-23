@@ -5,10 +5,10 @@ const MongoStore = require('connect-mongodb-session')(session)
 
 const cors = require('cors')
 
-const AuthRoutes = require('./routes/auth')
-const ExerciseRoutes = require('./routes/exercises')
-const TrainingRoutes = require('./routes/trainings')
-const UserRoutes = require('./routes/users')
+const AuthRoutes = require('./routes/authRouter')
+const ExerciseRoutes = require('./routes/exerciseRouter')
+const TrainingRoutes = require('./routes/trainingRouter')
+const UserRoutes = require('./routes/userRouter')
 
 require('dotenv').config();
 

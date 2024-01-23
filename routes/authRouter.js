@@ -83,7 +83,7 @@ router.get('/me', async(req, res) => {
         .end(JSON.stringify({error: "You are not signed in!"}))
     }
 
-    await UserSchema.findById(userId).select(['-hashPassword', '-_id', '-__v'])
+    await UserSchema.findById(userId).select(['-stats', '-hashPassword', '-_id', '-__v'])
         .then(user => {
             res.status(200, {'Content-Type': 'application/json'})
             .end(JSON.stringify(user))

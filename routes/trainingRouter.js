@@ -1,3 +1,4 @@
+
 const {Router} = require('express')
 const TrainingSchema = require('../models/training')
 const ExerciseSchema = require('../models/exercise')

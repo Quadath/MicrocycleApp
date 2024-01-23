@@ -18,15 +18,16 @@ const UserSchema = new Schema({
     stats: {
         exercises: {
             type: Map,
-            of: [
+            of: 
                 {
-                    date: String,
-                    weight: Number,
-                    cycles: Number,
-                    repeats: Number,
-                    _id: false
+                    type: Map,
+                    of : {
+                        weight: Number,
+                        sets: Number,
+                        repeats: Number,
+                        _id: false
+                    }
                 }
-            ]
         }
     }
 })
