@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from "../../hooks"
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDebounce } from 'usehooks-ts';
@@ -9,7 +9,10 @@ import './RegisterForm.sass'
 
 export default function RegisterForm () {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
     const {message, loading, error} = useTypedSelector(state => state.register)
+    const [requestSent, setRequestSent] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -35,8 +38,13 @@ export default function RegisterForm () {
             repeat: formData.repeat !== '' && formData.password !== formData.repeat,
             full: formData.name !== '' && formData.username !== '' && formData.password !== '' && formData.repeat !==''
         })
-    }, [debouncedData, formData])
+    }, [debouncedData])
 
+    useEffect(() => {
+        if (message === 'Account successfully created!' && requestSent) {
+            setTimeout(() => navigate('/auth/login'), 1000)
+        }
+    }, [message])
 
     const isDataValid = () => (!formErrors.name && !formErrors.username && !formErrors.password && !formErrors.repeat)
 
@@ -49,6 +57,7 @@ export default function RegisterForm () {
             password: "",
             repeat: ""
         })
+        setRequestSent(true);
     }
 
     return (
@@ -87,7 +96,7 @@ export default function RegisterForm () {
                     </button>
                 </div>
             </form>
-            <div className={`auth-message register${message[0] === 'A' ? ' success' : ''}${message[0] === 'E' ? ' error' : ''}`}>
+            <div className={`auth-message register${message[0] === 'A' && requestSent ? ' success' : ''}${message[0] === 'E' ? ' error' : ''}`}>
                 {message === "Error" ? error : message}
             </div>
             <p className='auth-switch register'>Already have account? <Link to={'/auth/login'}>Login</Link></p>

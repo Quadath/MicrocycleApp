@@ -7,7 +7,7 @@ import { useDebounce } from 'usehooks-ts';
 import { LoginRequestBody, loginRequest } from '../../services/authService';
 import './LoginForm.sass'
 
-export default function RegisterForm () {
+export default function LoginForm () {
     const dispatch = useAppDispatch()
     const {message, loading, error} = useTypedSelector(state => state.login)
 

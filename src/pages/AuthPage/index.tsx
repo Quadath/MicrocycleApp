@@ -4,8 +4,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import RegisterForm from '../../components/register-form/RegisterForm';
 import LoginForm from '../../components/login-form/LoginForm'
 
-import { useEffect, useRef } from "react";
-import { IUser } from "../../store/types/AuthTypes";
+import { useEffect } from "react";
   
 
 export default function AuthPage () {

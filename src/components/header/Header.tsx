@@ -1,6 +1,6 @@
-import "./Header.sass"
 import { Link } from "react-router-dom"
 import { useTypedSelector } from "../../hooks/useTypedSelector"
+import "./Header.sass"
 
 export default function Header() {
     const {user, loading} = useTypedSelector(state => state.session)
