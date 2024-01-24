@@ -40,6 +40,4 @@ app.use('/auth', AuthRoutes)
 app.use('/exercises', ExerciseRoutes)
 app.use('/trainings', TrainingRoutes)
 app.use('/users', UserRoutes)
-app.use('/auth', AuthRoutes)
-
 app.listen(process.env.PORT, () => console.log(`App is running on port ${process.env.PORT}`))

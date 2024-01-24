@@ -28,6 +28,10 @@ const UserSchema = new Schema({
                         _id: false
                     }
                 }
+        },
+        bodyWeight: {
+            type: Map,
+            of: Number
         }
     }
 })

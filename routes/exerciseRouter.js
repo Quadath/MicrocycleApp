@@ -8,9 +8,16 @@ module.exports = router;
 
 router.get('/', async (req,res) => {
     const exercises = await ExerciseSchema.find({}, {__v: 0});
-    console.log(exercises);
+
+    const payload = {}
+    exercises.forEach(item => {
+        payload[item._id] = item.name
+    })
+
+    console.log(payload)
+
     res.status(200);
-    return res.send(exercises);
+    return res.send(payload);
 })
 
 router.post('/', async (req,res) => {
