@@ -1,8 +1,3 @@
-export interface IExercise {
-    _id: string,
-    name: string
-}
-
 export enum ExerciseFetchActionTypes {
     EXERCISE_FETCH_LOADING = "EXERCISE_FETCH_LOADING",
     EXERCISE_FETCH_SUCCESS = "EXERCISE_FETCH_SUCCESS",
@@ -14,7 +9,9 @@ interface ExerciseFetchLoadingAction {
 }
 interface ExerciseFetchSuccessAction {
     type : ExerciseFetchActionTypes.EXERCISE_FETCH_SUCCESS,
-    exercises: IExercise[]
+    exercises: {
+        [key: string]: String
+    }
 }
 interface ExerciseFetchErrorAction {
     type: ExerciseFetchActionTypes.EXERCISE_FETCH_ERROR,

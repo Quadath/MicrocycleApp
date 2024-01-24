@@ -17,7 +17,7 @@ export const statsReducer = (state = initialState, action: StatsFetchAction) : S
         case StatsFetchActionTypes.STATS_FETCH_LOADING:
             return {...state, loading: true, error: null}
         case StatsFetchActionTypes.STATS_FETCH_SUCCESS:
-            return {...state, loading: false, error: null}
+            return {...state, stats: action.stats, loading: false, error: null}
         case StatsFetchActionTypes.STATS_FETCH_ERROR: 
             return {...state, loading: false, error: action.error}
         default:

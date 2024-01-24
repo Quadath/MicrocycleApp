@@ -4,14 +4,14 @@ import "./UserPage.sass"
 import { useEffect } from "react"
 
 export default function UserPage() {
-    const {user} = useTypedSelector(state => state.session)
+    const {user, loading: userLoading} = useTypedSelector(state => state.session)
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (!user)  {
+        if (!user && !userLoading)  {
             navigate('/auth/login')
         }
-    }, [user, navigate])
+    }, [user, userLoading, navigate])
     return (
         <div className="user-page">
             <h1>{user?.name}</h1>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "@reduxjs/toolkit";
-import { AuthActionTypes, RegisterAction, LoginAction, SessionAction, IUser} from '../store/types/AuthTypes';
+import { AuthActionTypes, RegisterAction, LoginAction, SessionAction} from '../store/types/AuthTypes';
 import { API_URL } from '.';
 
 export interface RegisterRequestBody {
