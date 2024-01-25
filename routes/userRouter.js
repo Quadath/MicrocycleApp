@@ -1,4 +1,7 @@
+const protectRoute = require('../middleware/protectedRoute');
 const UserSchema = require('../models/user')
+const ExerciseSchema = require('../models/exercise')
+const ObjectId = require('mongoose').Types.ObjectId
 const {Router} = require('express')
 
 const router = Router()
@@ -18,6 +21,19 @@ router.get('/stats', async (req, res) => {
     return res.status(200).json(user.stats);
 
 })
+
+router.post('/stats/exercises/:id',
+    (req,res, next) => protectRoute(req,res,next),
+    async (req, res) => {
+        const userId = req.session.user;
+        if (!ObjectId.isValid(req.params.id)) {
+            return res.status(403).send({error: "Invalid id"})
+        }
+        const exercise = await ExerciseSchema.findById(req.params.id);
+        const user = await UserSchema.findOneAndUpdate({_id: userId, stats: {$exists: true}}, {
+            [`stats.exercises.${req.params.id}`]: {}
+        })
+    })
 
 router.get('/nfnf', async (req, res) => {
     const a = await UserSchema.findOneAndUpdate({_id: "65ae7df3384d27501629ae9d", stats: {$exists: false}}, { 

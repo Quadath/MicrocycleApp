@@ -11,10 +11,12 @@ router.get('/', async (req,res) => {
 
     const payload = {}
     exercises.forEach(item => {
-        payload[item._id] = item.name
+        payload[item._id] = {
+            name: item.name,
+            abbreviation: item?.abbreviation,
+            description: item?.descripiton
+        }
     })
-
-    console.log(payload)
 
     res.status(200);
     return res.send(payload);

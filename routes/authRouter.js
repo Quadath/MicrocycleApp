@@ -39,7 +39,7 @@ router.post('/register', registerValidator, async(req, res) => {
     })
     await user.save().then((result) => {
         res.status(200, {'Content-Type': 'application/json'})
-        .end(JSON.stringify({message: "sussess"}))
+        .end(JSON.stringify({message: "success"}))
     })
 })
 
