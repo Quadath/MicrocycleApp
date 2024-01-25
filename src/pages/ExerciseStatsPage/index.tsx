@@ -24,7 +24,7 @@ export default function ExerciseStatsPage() {
 
     return (
         <div className="exercise_stats-page">
-            <h2 className="header">{exercises && exercises[`${params.exerciseId}`]}</h2>
+            <h2 className="header">{exercises && exercises[`${params.exerciseId}`].name}</h2>
             {stats?.exercises && params.exerciseId && Object.keys(stats.exercises[params.exerciseId]).map(item => 
                 <div key={item}>
                     <h4>{item}</h4>

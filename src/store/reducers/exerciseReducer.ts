@@ -1,8 +1,8 @@
-import { ExerciseFetchAction, ExerciseFetchActionTypes } from "../types/ExerciseTypes";
+import { ExerciseFetchAction, ExerciseFetchActionTypes, IExercise } from "../types/ExerciseTypes";
 
 interface ExerciseState {
     loading: boolean,
-    exercises: {[key: string]: String} | null,
+    exercises: {[key: string]: IExercise} | null,
     error: any
 }
 

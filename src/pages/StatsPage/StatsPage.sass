@@ -1,6 +1,53 @@
-.stats-page
-    width: 100%
-    position: absolute
-    left: 50%
-    transform: translate(-50%, 0)
-    padding: 10px
+.stats
+    &-page
+        width: 100%
+        position: absolute
+        left: 50%
+        transform: translate(-50%, 0)
+        padding: 10px
+        a
+            color: #4ed8e8
+            line-height: 20px
+    &-button_add
+        margin-top: 20px
+        border: none
+        background-color: rgba(0,0,0,0)
+    &-addExercise
+        &Button
+            margin-top: 10px
+            background-color: rgba(0,0,0,0)
+            border: none
+        &Block
+            width: 210px
+            height: 400px
+            position: relative
+            border-radius: 5px
+            transition: 0.25s ease-in
+        &Block.hidden
+            opacity: 0
+            transform: translateY(10px)
+            transition: 0.25s ease-out
+        &Input
+            height: 40px
+            width: 100%
+            background-color: #D24545
+            border: none
+            border-radius: 5px
+            padding: 10px
+            color: white
+            font-size: 16px
+            &::placeholder 
+                color: #ddd
+        &Dropdown
+            z-index: -1
+            top:0
+            width: 100%
+            position: absolute
+            color: #333
+            border-radius: 5px
+            padding: 40px 10px 0 10px
+            background-color: #f4eddf
+            transition: 0.25s ease-in
+        &Dropdown.hidden
+            opacity: 0
+            transition: 0.25s ease-out
