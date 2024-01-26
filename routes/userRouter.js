@@ -33,6 +33,7 @@ router.post('/stats/exercises/:id',
         const user = await UserSchema.findOneAndUpdate({_id: userId, stats: {$exists: true}}, {
             [`stats.exercises.${req.params.id}`]: {}
         })
+        return res.send({message: 'success'})
     })
 
 router.get('/nfnf', async (req, res) => {
