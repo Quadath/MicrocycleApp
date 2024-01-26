@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector"
 import { useAppDispatch } from "../../hooks";
-import { loadStats } from "../../services/statsService";
+import { loadStats, addExerciseToStats} from "../../services/statsService";
+
 
 import "./StatsPage.sass"
 
@@ -13,6 +14,7 @@ export default function StatsPage() {
     const {user, loading: userLoading} = useTypedSelector(state => state.session)
     const {stats} = useTypedSelector(state => state.stats)
     const {exercises} = useTypedSelector(state => state.exercises)
+    const {loading: addExerciseLoading} = useTypedSelector(state=> state.addExerciseToStats)
 
     const navigate = useNavigate()
     
@@ -32,15 +34,15 @@ export default function StatsPage() {
 
     useEffect(() => {
         if (exercises && exerciseInputValue !== "" && exerciseInputValue.split(' ').join('') !== '') {
-            setMatchedExercises(getKeyByValue(exercises, exerciseInputValue).map(item => exercises[item]))
+            setMatchedExercises(getKeyByValue(exercises, exerciseInputValue).filter(item => stats?.exercises[item] == null))
         } else {
             setMatchedExercises([]);
         }
     }, [exerciseInputValue])
-    
+
     useEffect(() => {
         dispatch(loadStats())
-    }, [])
+    }, [addExerciseLoading])
 
     return (   
         <div className="stats-page">
@@ -56,7 +58,7 @@ export default function StatsPage() {
                 <input className="stats-addExerciseInput" placeholder="Type name here..." onChange={(e) => setExerciseInputValue(e.target.value.toLowerCase())}/>
                 <div className={`stats-addExerciseDropdown${matchedExercises.length !== 0 ? '' : ' hidden'}`}>
                     {exercises && matchedExercises?.map(item => 
-                        <p key={item.name}>{item.name}</p>)}
+                        <p onClick={() => dispatch(addExerciseToStats(item))} key={item}>{exercises[item].name}</p>)}
                 </div>
             </div>
         </div>

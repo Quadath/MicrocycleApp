@@ -29,3 +29,24 @@ interface StatsFetchErrorAction {
 }
 
 export type StatsFetchAction = StatsFetchLoadingAction | StatsFetchSuccessAction | StatsFetchErrorAction
+
+export enum AddExerciseToStatsTypes {
+    ADD_EXERCISE_TO_STATS_LOADING = "ADD_EXERCISE_TO_STATS_LOADING",
+    ADD_EXERCISE_TO_STATS_SUCCESS = "ADD_EXERCISE_TO_STATS_SUCCESS",
+    ADD_EXERCISE_TO_STATS_ERROR = "ADD_EXERCISE_TO_STATS_ERROR"
+}
+
+interface AddExerciseToStatsLoadingAction {
+    type: AddExerciseToStatsTypes.ADD_EXERCISE_TO_STATS_LOADING,
+    id: string
+}
+interface AddExerciseToStatsSuccessAction {
+    type: AddExerciseToStatsTypes.ADD_EXERCISE_TO_STATS_SUCCESS,
+    message: string
+}
+interface AddExerciseToStatsErrorAction {
+    type: AddExerciseToStatsTypes.ADD_EXERCISE_TO_STATS_ERROR,
+    error: any
+}
+
+export type AddExerciseToStatsAction = AddExerciseToStatsLoadingAction | AddExerciseToStatsSuccessAction | AddExerciseToStatsErrorAction
