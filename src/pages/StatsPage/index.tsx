@@ -19,46 +19,64 @@ export default function StatsPage() {
     const navigate = useNavigate()
     
     const [exerciseInputValue, setExerciseInputValue] = useState("");
-    const [inputAddVisible, setInputAddVisible] = useState(false);
+    const[matchedExercises, setMatchedExercises] = useState<any>([]);
 
+    function handleAddExerciseClick(item) {
+        dispatch(addExerciseToStats(item));
+        setExerciseInputValue("")
+    }
+
+    //Redirect if no user
     useEffect(() => {
         if (!user && !userLoading)  {
             navigate('/auth/login')
         }
     }, [user, userLoading, navigate, stats])
-    let exercisesIDs: string[] = []
-    if (stats?.exercises) {
-        Object.keys(stats?.exercises).forEach(item => exercisesIDs.push(item))
-    }
-    const[matchedExercises, setMatchedExercises] = useState<any>([]);
 
+    //Find exercises that match value in search input
     useEffect(() => {
-        if (exercises && exerciseInputValue !== "" && exerciseInputValue.split(' ').join('') !== '') {
-            setMatchedExercises(getKeyByValue(exercises, exerciseInputValue).filter(item => stats?.exercises[item] == null))
-        } else {
-            setMatchedExercises([]);
-        }
+        setMatchedExercises([]);
+        if (!exercises) return;
+        if (exerciseInputValue.split(' ').join('') === '') return;
+        setMatchedExercises(getKeyByValue(exercises, exerciseInputValue).filter(item => !stats?.exercises[item]))    
     }, [exerciseInputValue])
-
+    
+    //Load and update stats
     useEffect(() => {
         dispatch(loadStats())
     }, [addExerciseLoading])
 
+    
+    //Get id's of exercises that stats contains
+    let exercisesIDs: string[] = stats?.exercises ? Object.keys(stats?.exercises) : []; 
+    //Map exerciseIDs to JSX elements
+    const exerciseListElements = (function() {
+        if (!exercises) return <h3>Loading...</h3>
+        if (!stats) return <h3>No stats yet</h3>
+        return exercisesIDs.map(item => 
+            <div key={item}><Link to={`/stats/${item}`}>{exercises[item].name}</Link></div>
+        )
+    })()
+
+    const matchedExercisesElements = (function() {
+        if(!exercises) return null
+        if(!matchedExercises) return null
+        return matchedExercises.map(item => 
+            <p onClick={() => handleAddExerciseClick(item)} key={item}>{exercises[item].name}</p>)
+    })()
+    
     return (   
         <div className="stats-page">
             <h2>Stats</h2>
-            {!stats && <h3>No stats yet</h3> }
-            {exercisesIDs && exercises && exercisesIDs.map(item => 
-                <div key={item}><Link to={`/stats/${item}`}>{exercises[item].name}</Link></div>
-            )}
-            <button className="stats-addExerciseButton" onClick={() => setInputAddVisible(!inputAddVisible)}>
-                Add <span>+</span>
-            </button>
-            <div className={`stats-addExerciseBlock${inputAddVisible ? '' : ' hidden'}`}>
-                <input className="stats-addExerciseInput" placeholder="Type name here..." onChange={(e) => setExerciseInputValue(e.target.value.toLowerCase())}/>
-                <div className={`stats-addExerciseDropdown${matchedExercises.length !== 0 ? '' : ' hidden'}`}>
-                    {exercises && matchedExercises?.map(item => 
-                        <p onClick={() => dispatch(addExerciseToStats(item))} key={item}>{exercises[item].name}</p>)}
+            {exerciseListElements}
+            <div className={`stats-addExerciseBlock${matchedExercises.length > 0 ? '' : ' hidden'}`}>
+                <input className="stats-addExerciseInput" 
+                    onChange={(e) => setExerciseInputValue(e.target.value)}
+                    placeholder="Add exercise..."
+                    value={exerciseInputValue}
+                />
+                <div className={`stats-addExerciseList${matchedExercises.length > 0 ? '' : ' hidden'}`}>
+                    {matchedExercisesElements}
                 </div>
             </div>
         </div>
@@ -67,5 +85,5 @@ export default function StatsPage() {
 
 function getKeyByValue(obj, value) {
     return Object.keys(obj)
-           .filter(key => obj[key].name.toLowerCase().includes(value));
+           .filter(key => obj[key].name.toLowerCase().includes(value.toLowerCase()));
 }
