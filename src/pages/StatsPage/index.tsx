@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector"
 import { useAppDispatch } from "../../hooks";
 import { loadStats, addExerciseToStats} from "../../services/statsService";
@@ -21,6 +21,7 @@ export default function StatsPage() {
     const [exerciseInputValue, setExerciseInputValue] = useState("");
     const[matchedExercises, setMatchedExercises] = useState<any>([]);
 
+    //Send request to server and clear input
     function handleAddExerciseClick(item) {
         dispatch(addExerciseToStats(item));
         setExerciseInputValue("")
@@ -33,7 +34,7 @@ export default function StatsPage() {
         }
     }, [user, userLoading, navigate, stats])
 
-    //Find exercises that match value in search input
+    //Find exercises that matches value of search input
     useEffect(() => {
         setMatchedExercises([]);
         if (!exercises) return;
@@ -45,7 +46,6 @@ export default function StatsPage() {
     useEffect(() => {
         dispatch(loadStats())
     }, [addExerciseLoading])
-
     
     //Get id's of exercises that stats contains
     let exercisesIDs: string[] = stats?.exercises ? Object.keys(stats?.exercises) : []; 
@@ -58,6 +58,7 @@ export default function StatsPage() {
         )
     })()
 
+    //Map matched exercises to list of JSX elements
     const matchedExercisesElements = (function() {
         if(!exercises) return null
         if(!matchedExercises) return null
@@ -83,6 +84,7 @@ export default function StatsPage() {
     )
 }
 
+//Search IDs of exercises that matches value of search input
 function getKeyByValue(obj, value) {
     return Object.keys(obj)
            .filter(key => obj[key].name.toLowerCase().includes(value.toLowerCase()));

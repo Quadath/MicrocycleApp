@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from "../../hooks"
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDebounce } from 'usehooks-ts';
@@ -29,25 +29,9 @@ export default function RegisterForm () {
     })
 
     const debouncedData = useDebounce<typeof formData>(formData, 1000)
-    
-    useEffect(() => {
-        setFormErrors({
-            name: formData.name !== '' && formData.name.length < 2,
-            username: formData.username !== '' && formData.username.length < 5,
-            password: formData.password !== '' && formData.password.length < 6,
-            repeat: formData.repeat !== '' && formData.password !== formData.repeat,
-            full: formData.name !== '' && formData.username !== '' && formData.password !== '' && formData.repeat !==''
-        })
-    }, [debouncedData])
-
-    useEffect(() => {
-        if (message === 'Account successfully created!' && requestSent) {
-            setTimeout(() => navigate('/auth/login'), 1000)
-        }
-    }, [message])
 
     const isDataValid = () => (!formErrors.name && !formErrors.username && !formErrors.password && !formErrors.repeat)
-
+    
     function handleSubmit(formData : RegisterRequestBody, e : any) {
         e.preventDefault();
         dispatch(registerRequest(formData))
@@ -60,6 +44,24 @@ export default function RegisterForm () {
         setRequestSent(true);
     }
 
+    //Check form errors
+    useEffect(() => {
+        setFormErrors({
+            name: formData.name !== '' && formData.name.length < 2,
+            username: formData.username !== '' && formData.username.length < 5,
+            password: formData.password !== '' && formData.password.length < 6,
+            repeat: formData.repeat !== '' && formData.password !== formData.repeat,
+            full: formData.name !== '' && formData.username !== '' && formData.password !== '' && formData.repeat !==''
+        })
+    }, [debouncedData])
+
+    //Update after server response
+    useEffect(() => {
+        if (message === 'Account successfully created!' && requestSent) {
+            setTimeout(() => navigate('/auth/login'), 1000)
+        }
+    }, [message])
+
     return (
         <div className='auth-page register'>
             <form onSubmit={(e) => handleSubmit(formData, e)} className='auth-form register'>
@@ -70,25 +72,29 @@ export default function RegisterForm () {
                     <label className={`${(formErrors.name && formData.name !== '') ? 'error' : ''}`}>Name
                     <span> 2 characters minimum</span>
                     <input placeholder="Your name" type="text" autoComplete='false' value={formData.name} 
-                    onChange={(e) => setFormData({...formData, name: e.target.value})} name='name'/>
+                        onChange={(e) => setFormData({...formData, name: e.target.value})} name='name'
+                    />
                     </label>
 
                     <label className={`${(formErrors.username && formData.username !== '') ? 'error' : ''}`}>Username
                     <span> 5 characters minimum</span>
                     <input placeholder="Your username" type="text" autoComplete='false' value={formData.username} 
-                    onChange={(e) => setFormData({...formData, username: e.target.value.replace(/[^a-zA-Z0-9]/g, '')})} name='username'/>
+                        onChange={(e) => setFormData({...formData, username: e.target.value.replace(/[^a-zA-Z0-9]/g, '')})} name='username'
+                    />
                     </label>
 
                     <label className={`${(formErrors.password && formData.password !== '') ? 'error' : ''}`}>Password
                     <span> 6 characters minimum</span>
                     <input placeholder="Your password" type="password" value={formData.password} 
-                    onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'/>
+                        onChange={(e) => setFormData({...formData, password: e.target.value})} name='password'
+                    />
                     </label>
 
                     <label className={`${(formErrors.repeat && formData.repeat !== '') ? 'error' : ''}`}>Repeat
                     <span> Passwords do not match</span>
                     <input placeholder="Repeat password" type="password" value={formData.repeat} 
-                    onChange={(e) => setFormData({...formData, repeat: e.target.value.replace(/[^a-zA-Z0-9!#()&.]/g, '')})} name='repeat'/>
+                        onChange={(e) => setFormData({...formData, repeat: e.target.value.replace(/[^a-zA-Z0-9!#()&.]/g, '')})} name='repeat'
+                    />
                     </label>
 
                     <button disabled={(!isDataValid() || !formErrors.full)} className='auth-form-submit'>
@@ -104,4 +110,3 @@ export default function RegisterForm () {
         </div>
     )
 }
-

@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../hooks"
 import { useEffect } from "react"
 
 import "./ExerciseStatsPage.sass"
+import { loadStats } from "../../services/statsService"
 
 export default function ExerciseStatsPage() {
     const dispatch = useAppDispatch()
@@ -15,49 +16,57 @@ export default function ExerciseStatsPage() {
     const navigate = useNavigate()
     const params = useParams()
 
+    //Redirect if no user
     useEffect(() => {
         if (!user && !userLoading)  {
             navigate('/auth/login')
         }
     }, [user, userLoading, navigate, stats])
 
+    //Update stats 
+    useEffect(() => {
+        dispatch(loadStats())
+    }, [])
+
+    const dataTable = DataTable(stats, params.exerciseID);
 
     return (
         <div className="exercise_stats-page">
-            <h2 className="header">{exercises && exercises[`${params.exerciseId}`].name}</h2>
+            <h2 className="header">{exercises && exercises[`${params.exerciseID}`].name}</h2>
             <div className="exercise_stats-table">
-                <table>
-                    <tbody>
-                        <tr>
-                            {getArrayOfDates().map(item => <th key={item}>{item.slice(-5)}</th>)}
-                        </tr>
-                        <tr>
-                            {getArrayOfDates().map(item => <td>{stats && params.exerciseId && stats.exercises[params.exerciseId][item] ? `${stats.exercises[params.exerciseId][item].weight}` : '' }</td>)}
-                        </tr>
-                        <tr>
-                            {getArrayOfDates().map(item => <td>{stats && params.exerciseId && stats.exercises[params.exerciseId][item] ? `${stats.exercises[params.exerciseId][item].sets}` : '' }</td>)}
-                        </tr>
-                        <tr>
-                            {getArrayOfDates().map(item => <td>{stats && params.exerciseId && stats.exercises[params.exerciseId][item] ? `${stats.exercises[params.exerciseId][item].repeats}` : '' }</td>)}
-                        </tr>
-                    </tbody>
-                </table>
+                {dataTable}
             </div>
-
-            {/* {stats?.exercises && params.exerciseId && Object.keys(stats.exercises[params.exerciseId]).map(item => 
-                <div key={item}>
-                    <h4>{item}</h4>
-                    <p>{`Weight: ${stats.exercises[`${params.exerciseId}`][item].weight}`}</p>
-                    <p>{`Sets: ${stats.exercises[`${params.exerciseId}`][item].sets}`}</p>
-                    <p>{`Repeats: ${stats.exercises[`${params.exerciseId}`][item].repeats}`}</p>
-                    
-                </div>
-            )} */}
         </div>
     )
 }
 
-const getArrayOfDates = () => {
+function DataTable(stats, exerciseID) {
+    if (!stats) return <span>Error: no stats</span>
+    if (!exerciseID) return <span>Error: invalid exerciseID</span>
+    if (!stats.exercises[exerciseID]) return <span>Error: no data about this exercise</span>
+    const arrayOfDates = getArrayOfDates();
+
+    return (
+        <table>
+            <tbody>
+                <tr>
+                    {arrayOfDates.map(item => <th key={`${item}d`}>{item.slice(-5)}</th>)}
+                </tr>
+                <tr>
+                    {arrayOfDates.map(item => <td key={`${item}w`}>{stats.exercises[exerciseID][item]?.weight}</td>)}
+                </tr>
+                <tr>
+                    {arrayOfDates.map(item => <td key={`${item}s`}>{stats.exercises[exerciseID][item]?.sets}</td>)}
+                </tr>
+                <tr>
+                    {arrayOfDates.map(item => <td key={`${item}r`}>{stats.exercises[exerciseID][item]?.repeats}</td>)}
+                </tr>
+            </tbody>
+        </table>
+    )
+}
+
+function getArrayOfDates() {
     const year = new Date().getFullYear()
 
     let date = new Date(year, 0);

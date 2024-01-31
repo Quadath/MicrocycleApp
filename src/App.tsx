@@ -46,7 +46,7 @@ function App() {
               <Route path='/auth/*' element={<AuthPage/>}/>
               <Route path='/user' element={<UserPage/>}/>
               <Route path='/stats' element={<StatsPage/>}/>
-              <Route path='/stats/:exerciseId' element={<ExerciseStatsPage/>}/>
+              <Route path='/stats/:exerciseID' element={<ExerciseStatsPage/>}/>
               <Route path='*' element={<MainPage/>}/>
             </Routes>
             </CSSTransition>
