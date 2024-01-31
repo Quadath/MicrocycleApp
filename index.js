@@ -31,6 +31,7 @@ app.use(session({
     store
 }))
 app.use(cors({credentials: true, origin: 'http://localhost:4000'}));
+// app.use(cors({credentials: true, origin: 'http://192.168.31.186:4000'}));s
 
 mongoose.set('strictQuery', false)
 mongoose.connect(process.env.MONGO_URI)

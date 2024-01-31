@@ -26,12 +26,14 @@ const UserSchema = new Schema({
                         sets: Number,
                         repeats: Number,
                         _id: false
-                    }
-                }
+                    },
+                },
+            default: {}
         },
         bodyWeight: {
             type: Map,
-            of: Number
+            of: Number,
+            default: {}
         }
     }
 })
