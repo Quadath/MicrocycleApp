@@ -7,7 +7,6 @@ import { getExercisesList } from './services/exerciseService';
 
 import "./App.sass"
 
-
 import {
   TransitionGroup,
   CSSTransition
