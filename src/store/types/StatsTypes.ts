@@ -50,3 +50,11 @@ interface AddExerciseToStatsErrorAction {
 }
 
 export type AddExerciseToStatsAction = AddExerciseToStatsLoadingAction | AddExerciseToStatsSuccessAction | AddExerciseToStatsErrorAction
+
+export interface EditedExerciseData {
+    [key: string]: {
+        weight: number,
+        sets: number,
+        repeats: number
+    }
+}
