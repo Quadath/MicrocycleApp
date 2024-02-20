@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import "./ExerciseStatsPage.sass"
 
-import { loadStats } from "../../services/statsService"
+import { loadStats, sendEditedStatsData } from "../../services/statsService"
 import {Grid} from 'react-virtualized';
 import StatsTableInputElement from "../../components/stats-table-input-element";
 
@@ -27,6 +27,16 @@ export default function ExerciseStatsPage() {
 
     const gridRef = useRef<Grid>();
     const todayRow = 1 + getArrayOfDates().findIndex((item) => item === toDateKey(new Date()))
+
+
+    const exerciseID = params.exerciseID ? params.exerciseID : "";
+    const handleDataEditing = () => {
+        console.log('hi')
+        if(editingMode) {
+            dispatch(sendEditedStatsData(exerciseID, editedData));
+        }
+        setEditingMode(!editingMode)
+    }
 
 
     //Redirect if no user
@@ -59,11 +69,11 @@ export default function ExerciseStatsPage() {
         <div className="exercise-stats-page">
             <h2 className="header">
                 <Link to={'/stats'}><span>&#171;</span></Link>
-                {exercises && exercises[`${params.exerciseID}`].name}
+                {exercises && exercises[`${exerciseID}`].name}
             </h2>
             <div style={{width: `${tableWidth}px`}} className="exercise-stats-table-actions-block">
                 <button className="exercise-stats-table-actions-button" onClick={() => gridRef.current?.scrollToCell({columnIndex: 0, rowIndex: todayRow})}>Now ⏲</button>
-                <button className="exercise-stats-table-actions-button" onClick={() => setEditingMode(!editingMode)}>Edit ✎</button>
+                <button className={`exercise-stats-table-actions-button ${editingMode ? "editing" : ""}`} onClick={() => handleDataEditing()}>Edit ✎</button>
             </div>
             <div className="exercise-stats-table-block">
                     <div className="exercise-stats-table-info">
@@ -80,7 +90,7 @@ export default function ExerciseStatsPage() {
                 }
                     columnCount={4}
                     columnWidth={tableWidth/4}
-                    height={300}
+                    height={500}
                     rowCount={getArrayOfDates().length}
                     rowHeight={40}
                     width={tableWidth}

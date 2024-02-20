@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "react";
-import { StatsFetchAction, StatsFetchActionTypes } from "../store/types/StatsTypes";
+import { SendEditedExerciseStatsAction, SendEditedExerciseStatsTypes, StatsFetchAction, StatsFetchActionTypes } from "../store/types/StatsTypes";
 import { AddExerciseToStatsAction, AddExerciseToStatsTypes } from "../store/types/StatsTypes";
 import { API_URL } from '.';
 
@@ -40,6 +40,34 @@ export const addExerciseToStats = (id: string) => {
                 const e = error.response?.data === undefined ? error :error.response?.data
                 dispatch({
                     type: AddExerciseToStatsTypes.ADD_EXERCISE_TO_STATS_ERROR, error: e
+                })
+            }
+        }
+    }
+}
+
+interface exerciseStatsData { 
+    [key: string]: {
+        weight: number,
+        sets: number,
+        repeats: number
+    }
+}
+
+export const sendEditedStatsData = (id: string, data: exerciseStatsData) => {
+    return async(dispatch: Dispatch<SendEditedExerciseStatsAction>) => {
+        try {
+            dispatch({type: SendEditedExerciseStatsTypes.SEND_EDITED_STATS_DATA_LOADING})
+            const response = await axios.post(`${API_URL}/users/stats/exercises/${id}`,{data}, { withCredentials: true })
+            dispatch({
+                type: SendEditedExerciseStatsTypes.SEND_EDITED_STATS_DATA_SUCCESS
+            })
+        }
+        catch(error) {
+            if (axios.isAxiosError(error)) {
+                const e = error.response?.data === undefined ? error :error.response?.data
+                dispatch({
+                    type: SendEditedExerciseStatsTypes.SEND_EDITED_STATS_DATA_ERROR, error: e
                 })
             }
         }

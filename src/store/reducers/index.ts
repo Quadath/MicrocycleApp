@@ -3,6 +3,7 @@ import { exerciseReducer } from "./exerciseReducer";
 import { registerReducer, loginReducer, sessionReducer } from "./authReducer";
 import { statsReducer } from "./statsReducer";
 import { addExerciseToStatsReducer } from "./addExerciseToStatsReducer";
+import { sendEditedStatsDataReducer } from "./exerciseStatsPageSendEditedData";
 
 export const rootReducer = combineReducers({
     exercises: exerciseReducer,
@@ -10,5 +11,6 @@ export const rootReducer = combineReducers({
     login: loginReducer,
     session: sessionReducer,
     stats: statsReducer,
-    addExerciseToStats: addExerciseToStatsReducer
+    addExerciseToStats: addExerciseToStatsReducer,
+    editedStatsData: sendEditedStatsDataReducer
 })
