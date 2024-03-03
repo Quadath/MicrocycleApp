@@ -2,7 +2,6 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { useTypedSelector } from "../../hooks/useTypedSelector"
 import { useAppDispatch } from "../../hooks"
 import { useEffect, useRef, useState } from "react"
-import { v4 as uuidv4 } from 'uuid';
 
 import "./ExerciseStatsPage.sass"
 

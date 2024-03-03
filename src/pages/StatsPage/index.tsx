@@ -8,7 +8,6 @@ import { loadStats, addExerciseToStats} from "../../services/statsService";
 import "./StatsPage.sass"
 
 export default function StatsPage() {
-
     const dispatch = useAppDispatch()
 
     const {user, loading: userLoading} = useTypedSelector(state => state.session)

@@ -15,6 +15,9 @@ export default function UserPage() {
     return (
         <div className="user-page">
             <h1>{user?.name}</h1>
+            <Link to="/trainings">
+                <h2>Trainings</h2>
+            </Link>
             <Link to="/stats">
                 <h2>Stats</h2>
             </Link>
