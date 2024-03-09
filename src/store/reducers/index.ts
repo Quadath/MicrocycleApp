@@ -4,9 +4,11 @@ import { registerReducer, loginReducer, sessionReducer } from "./authReducer";
 import { statsReducer } from "./statsReducer";
 import { addExerciseToStatsReducer } from "./addExerciseToStatsReducer";
 import { sendEditedStatsDataReducer } from "./exerciseStatsPageSendEditedData";
+import { trainingReducer } from "./trainingReducer";
 
 export const rootReducer = combineReducers({
     exercises: exerciseReducer,
+    trainings: trainingReducer,
     register: registerReducer,
     login: loginReducer,
     session: sessionReducer,
