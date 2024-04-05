@@ -3,7 +3,7 @@ import { TrainingFetchAction, TrainingActionTypes, ITraining } from "../types/Tr
 
 interface TrainingsState {
     loading: boolean,
-    trainings: {[key: string]: ITraining} | null,
+    trainings: ITraining[] | null,
     error: any
 }
 

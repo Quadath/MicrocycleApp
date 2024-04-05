@@ -9,11 +9,9 @@ export interface ITraining {
     author: string,
     days: 
     {
-        [key: string]: {
-            [index: number]: {
-                "exerciseID": string
-            }
-        }
+        [index: number]: [{
+            "exerciseID": string
+        }]
     },
     id: string
 }
@@ -23,9 +21,7 @@ interface TrainingFetchLoadingAction {
 } 
 interface TrainingFetchSuccessAction {
     type: TrainingActionTypes.TRAINING_FETCH_SUCCESS,
-    trainings: {
-        [key:string]: ITraining
-    }
+    trainings: ITraining[]
 }
 interface TrainingFetchErrorAction {
     type: TrainingActionTypes.TRAINING_FETCH_ERROR,

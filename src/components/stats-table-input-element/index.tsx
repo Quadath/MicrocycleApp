@@ -12,7 +12,7 @@ export default function StatsTableInputElement({style, text, date, type, setData
 
     return (
         <div className={`exercise-stats-table-item ${editingMode ? "editing" : ""}`} style={style}>
-            {editingMode && type !== "date"? <input onChange={(e) => handleChange(e)} value={text}/> : <span>{text}</span>}
+            {editingMode && type !== "date"? <input onChange={(e) => handleChange(e)} value={text ? text: ''}/> : <span>{text}</span>}
         </div>
     )
 }

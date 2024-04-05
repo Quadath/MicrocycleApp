@@ -13,9 +13,22 @@ export default function TrainingsPage() {
         dispatch(getTrainings())
     }, [user])
 
+    useEffect(() => {
+    }, [trainings])
+
     return (
         <div className="trainings-page">
             <h2>Trainings</h2>
+            {trainings?.map(item => TrainingItem(item))}
+        </div>
+    )
+}
+
+function TrainingItem(training) {
+    return (
+        <div key={training._id}>
+            <h4>{training.name}</h4>
+            {training.da}
         </div>
     )
 }
