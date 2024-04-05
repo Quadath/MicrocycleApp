@@ -6,12 +6,16 @@ const TrainingSchema = new Schema({
         required: true,
         default: "Training"
     },
-    days: [{
-        name: String,
-        exercises: [
-            {type: mongoose.Schema.Types.ObjectId, ref: 'Exercises'}
+    author: {type: mongoose.Types.ObjectId, required: true},
+    days: {
+        type: Map, of:  
+        [
+            {
+                exerciseID: {type: mongoose.Types.ObjectId, ref: 'exercises'},
+                _id: false
+            }
         ]
-    }]
+    }
 })
 
 module.exports = model('Training', TrainingSchema)

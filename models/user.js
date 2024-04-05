@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, default : mongoose} = require('mongoose');
 const ExerciseSchema = require('./exercise')
 
 const UserSchema = new Schema({
@@ -9,12 +9,15 @@ const UserSchema = new Schema({
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     hashPassword: {
         type: String,
         required: true
     },
+    trainings: [{type: mongoose.Types.ObjectId, ref: 'trainings'}],
+    currentTraining: { type: mongoose.Types.ObjectId, ref: 'trainings'},
     stats: {
         exercises: {
             type: Map,

@@ -3,32 +3,27 @@ const {Router} = require('express')
 const TrainingSchema = require('../models/training')
 const ExerciseSchema = require('../models/exercise')
 const ObjectIdMiddleware = require('../middleware/ObjectIdMiddleware')
+const protectRoute = require('../middleware/protectedRoute')
 
 const router = Router()
 
-router.get('/', async (req,res) => {
-    const trainings = await TrainingSchema.find({});
-    console.log(trainings);
-    res.status(200);
-    return res.send(trainings);
+router.get('/', async(req, res, next) => protectRoute(req,res,next),
+    async (req,res) => {
+        const trainings = await TrainingSchema.find({author: req.session.user});
+        res.status(200);
+        return res.send(trainings);
 })
 
-router.post('/', async (req,res) => {
-    const data = req.body;
-    console.log(data)
-
-    const exercise = await ExerciseSchema.findById("6583d4d2226147789463c1f5");
-    console.log(exercise);
-    const training = new TrainingSchema({
-        days: [
+router.post('/', (req, res, next) => protectRoute(req,res, next),
+    async (req,res) => {
+        const data = req.body;
+        const training = await new TrainingSchema(
             {
-                name: 'monday',
-                exercises: [exercise._id]
+                author: req.session.user,
+                days: data.days
             }
-        ]
-    })
-
-    training.save();
+        );
+        await training.save();
 })
 
 router.patch('/', (req,res,next) => ObjectIdMiddleware(req,res, next),
