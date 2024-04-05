@@ -9,9 +9,11 @@ export interface ITraining {
     author: string,
     days: 
     {
-        [index: number]: [{
-            "exerciseID": string
-        }]
+        [key: string]: {
+            [index: number]: {
+                "exerciseID": string
+            }
+        }
     },
     id: string
 }
