@@ -18,7 +18,7 @@ import MainPage from './pages/MainPage';
 import UserPage from './pages/UserPage';
 import StatsPage from './pages/StatsPage';
 import ExerciseStatsPage from './pages/ExerciseStatsPage';
-import TrainingsPage from './pages/TrainingsPage';
+import TrainingPage from './pages/TrainingPage';
 
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
             <Routes location={location}>
               <Route path='/auth/*' element={<AuthPage/>}/>
               <Route path='/user' element={<UserPage/>}/>
-              <Route path='/trainings' element={<TrainingsPage/>}/>
+              <Route path='/trainings' element={<TrainingPage/>}/>
               <Route path='/stats' element={<StatsPage/>}/>
               <Route path='/stats/:exerciseID' element={<ExerciseStatsPage/>}/>
               <Route path='*' element={<MainPage/>}/>

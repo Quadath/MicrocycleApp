@@ -1,13 +1,20 @@
 .training-card
+    position: absolute
+    top: 40px
+    width: 100%
     background-color: #f4eddf
     margin: 10px 0
     border-radius: 10px
-    max-width: 500px
+    max-width: 500px 
+    transition: 0.3s all
     &-header
         border-radius: 10px 10px 0 0px
         padding: 5px
         background-color: #D24545
+        display: flex
+        justify-content: space-between
         h4
+            display: inline
             margin: 5px 0
             color: white
     &-content
@@ -20,3 +27,5 @@
             text-transform: capitalize
         p
             margin: 0
+    &.active
+        background-color: #fff
