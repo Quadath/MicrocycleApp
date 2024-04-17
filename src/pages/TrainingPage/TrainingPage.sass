@@ -18,10 +18,30 @@
         font-size: 14px
         text-decoration: underline
     &-slider
+        margin-top: 20px
+        max-width: 500px
         height: 500px
         display: flex
         position: relative
         overflow: hidden
         &-buttons 
+            width: 100%
             position: absolute
+            display: flex
+            justify-content: space-between
+            align-items: center
+            button
+                background-color: rgba(0,0,0,0)
+                border: none
+        &-indicators
+            background-color: #373434
+            height: 10px
+            width: 100%
+            margin: 0 10px
+            border-radius: 10px
+            transition: 0.2s all
+            &.active
+                background-color: #ccc
+
+            
             

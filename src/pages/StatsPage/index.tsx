@@ -67,7 +67,10 @@ export default function StatsPage() {
     
     return (   
         <div className="stats-page">
-            <h2>Stats</h2>
+            <h2>
+                <Link className='back-page-button' to={'/user'}><span>&#171;</span></Link>
+                Stats
+            </h2>
             {exerciseListElements}
             <div className={`stats-addExerciseBlock${matchedExercises.length > 0 ? '' : ' hidden'}`}>
                 <input className="stats-addExerciseInput" 

@@ -67,7 +67,7 @@ export default function ExerciseStatsPage() {
     return (
         <div className="exercise-stats-page">
             <h2 className="header">
-                <Link to={'/stats'}><span>&#171;</span></Link>
+                <Link className="back-page-button" to={'/stats'}><span>&#171;</span></Link>
                 {exercises && exercises[`${exerciseID}`].name}
             </h2>
             <div style={{width: `${tableWidth}px`}} className="exercise-stats-table-actions-block">
