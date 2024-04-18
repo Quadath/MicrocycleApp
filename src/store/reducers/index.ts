@@ -5,6 +5,7 @@ import { statsReducer } from "./statsReducer";
 import { addExerciseToStatsReducer } from "./addExerciseToStatsReducer";
 import { sendEditedStatsDataReducer } from "./exerciseStatsPageSendEditedData";
 import { trainingReducer } from "./trainingReducer";
+import { trainingEditReducer } from "./trainingEditReducer";
 
 export const rootReducer = combineReducers({
     exercises: exerciseReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
     session: sessionReducer,
     stats: statsReducer,
     addExerciseToStats: addExerciseToStatsReducer,
-    editedStatsData: sendEditedStatsDataReducer
+    editedStatsData: sendEditedStatsDataReducer,
+    trainingEdit: trainingEditReducer
 })

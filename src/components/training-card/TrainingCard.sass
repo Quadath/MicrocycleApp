@@ -20,8 +20,12 @@
             margin: 5px 0
             color: white
     &-content
+        position: relative
+        overflow: scroll
         padding: 5px
         max-height: 100%
+        &::-webkit-scrollbar
+            display: none
         h5
             margin: 5px 0
     &-day 
@@ -43,6 +47,8 @@
         border: none
         cursor: pointer
         text-decoration: underline
+    &-edit.editing
+        color: rgba(255, 140, 0)
     &-add-exercise-button
         border: none
         background-color: rgba(0,0,0,0)
@@ -53,17 +59,29 @@
         cursor: pointer
     &-editing
         max-width: 500px
+    &-day
+        position: relative
     &-input
+        z-index: 10
         &-dropdown
+            max-height: 100px
+            z-index: 20
+            position: absolute
+            bottom: 0px
+            right: 0px
             background-color: #f4eddf
             border: 1px solid #ccc
             border-radius: 10px
             padding: 5px
-            position: absolute
             transition: 0.3s all
+            p
+                border-bottom: 1px solid gray
+                cursor: pointer
 .training-card.editing
     animation: shrink 1s
     overflow: hidden
+    &::-webkit-scrollbar
+        display: none
 
 @keyframes shrink
     from
