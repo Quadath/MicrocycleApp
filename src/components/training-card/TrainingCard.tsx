@@ -20,9 +20,7 @@ export default function TrainingCard({training, exercises, active, indexDelta}) 
         }
         setEditingMode(!editingMode)
     }
-
     if(!training || !exercises) return <></>
-    const days = Object.keys(training.days);
 
     return (
         <div className={`training-card${active ? ' active' : ''}${editingMode? ' editing': ''}`} 
@@ -33,7 +31,7 @@ export default function TrainingCard({training, exercises, active, indexDelta}) 
                 <button className={`training-card-edit${editingMode ? ' editing' : ''}`} onClick={() => handleEdit()}>EDIT</button>
             </div>
             <div className="training-card-content">
-                {!editingMode && days.map(day => <TrainingCardDayItem exercises={exercises} training={training} 
+                {!editingMode && weekDays.map(day => training.days[day].length > 0 && <TrainingCardDayItem exercises={exercises} training={training} 
                 editingMode={editingMode} day={day} editedData={editedData} setEditedData={setEditedData}/>)}
                 {editingMode && weekDays.map(day => <TrainingCardDayItem  exercises={exercises} training={training} 
                 editingMode={editingMode} day={day} editedData={editedData} setEditedData={setEditedData}/>)}
