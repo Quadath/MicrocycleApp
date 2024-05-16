@@ -26,19 +26,44 @@ router.post('/', (req, res, next) => protectRoute(req,res, next),
         await training.save();
 })
 
-router.patch('/', (req,res,next) => ObjectIdMiddleware(req,res, next),
-    async (req, res, next) => IsTrainingExist(req, res, next), 
-    async (req, res) => {
-        const {id, days} = req.body;
-        
+router.patch('/:id', async (req, res) => {
+        const {data, id} = req.body;
+
         const training = await TrainingSchema.findById(id);
         if (!training) return;
-        const entries = Object.keys(days);
-        entries.forEach(entry => {
-            training.days.set(entry, days[entry].value.toString());
+        const days = training.days;
+
+        Object.keys(data.added)?.forEach(day => {
+            data.added[`${day}`].forEach(ex => {
+                if(days[`${day}`].some(item => item.exerciseID.toString() === ex)) return
+                days[`${day}`].push(({exerciseID: ex}))
+            })
         })
-        training.save();
-})
+
+        const result = await TrainingSchema.findByIdAndUpdate(id, {
+            $set: {
+                days: days
+            }
+        })
+        
+        // res.send(result)
+        
+    }
+)
+
+// router.patch('/', (req,res,next) => ObjectIdMiddleware(req,res, next),
+//     async (req, res, next) => IsTrainingExist(req, res, next), 
+//     async (req, res) => {
+//         const {id, days} = req.body;
+        
+//         const training = await TrainingSchema.findById(id);
+//         if (!training) return;
+//         const entries = Object.keys(days);
+//         entries.forEach(entry => {
+//             training.days.set(entry, days[entry].value.toString());
+//         })
+//         training.save();
+// })
 
 router.delete('/', (req,res,next) => ObjectIdMiddleware(req,res, next),
     async (req, res, next) => await IsTrainingExist(req, res, next),
